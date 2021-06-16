@@ -1,0 +1,30 @@
+{
+  "name": "holbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "async": "^3.2.0",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.13",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rcheng1998/holbackend.git"
+  },
+  "author": "Rickie Cheng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rcheng1998/holbackend/issues"
+  },
+  "homepage": "https://github.com/Rcheng1998/holbackend#readme"
+}
