@@ -2,6 +2,8 @@ const router = require('express').Router();
 const request = require('request');
 const async = require('async')
 const axios = require('axios')
+const mergeJson = require("underscore")
+const merge = require('merge')
 require('dotenv').config()
 
 router.get("/twitchClips/:broadcasterID", async (req, res) => {
@@ -45,6 +47,7 @@ router.get("/channel/:twitchName", async (req, res) => {
     });
 
     let pagination = twitchRes.data.pagination.cursor
+    console.log('pagination', pagination)
 
     const moreTwitchRes = await axios.get('https://api.twitch.tv/helix/clips?broadcaster_id=' + broadcasterID + '&first=100' + '&after=' + pagination, {
         headers: {
@@ -53,10 +56,9 @@ router.get("/channel/:twitchName", async (req, res) => {
         }
     });
 
-    let twitchResponse = twitchRes.data;
-
-    twitchResponse = twitchResponse.concat(moreTwitchRes.data)
-    res.send(twitchResponse)
+    let merge = [...(twitchRes.data.data), ...(moreTwitchRes.data.data)]
+    console.log(merge.length)
+    res.send(merge)
 });
 
 router.get("/profilepicture/:twitchName", async (req, res) => {
