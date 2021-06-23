@@ -44,7 +44,19 @@ router.get("/channel/:twitchName", async (req, res) => {
         }
     });
 
-    res.send(twitchRes.data)
+    let pagination = twitchRes.data.pagination.cursor
+
+    const moreTwitchRes = await axios.get('https://api.twitch.tv/helix/clips?broadcaster_id=' + broadcasterID + '&first=100' + '&after=' + pagination, {
+        headers: {
+            'Client-ID': process.env.TWITCH_CLIENT_ID,
+            'Authorization': 'Bearer ' + process.env.TWITCH_OATH_KEY
+        }
+    });
+
+    let twitchResponse = twitchRes.data;
+
+    twitchResponse = twitchResponse.concat(moreTwitchRes.data)
+    res.send(twitchResponse)
 });
 
 router.get("/profilepicture/:twitchName", async (req, res) => {
