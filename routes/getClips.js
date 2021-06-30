@@ -36,8 +36,12 @@ router.get("/channel/:twitchName", async (req, res) => {
         }
     }
 
-    let broadcasterID = responseJSON.data[0].id
-    console.log(broadcasterID)
+    let broadcastID
+    try{
+        broadcasterID = responseJSON.data[0].id}
+    catch{
+        res.sendStatus(404)
+    }
 
     const twitchRes = await axios.get('https://api.twitch.tv/helix/clips?broadcaster_id=' + broadcasterID + '&first=100', {
         headers: {
@@ -62,7 +66,7 @@ router.get("/channel/:twitchName", async (req, res) => {
     if(merge.length === 0){
         res.sendStatus(404)
     }
-    
+
     res.send(merge)
 });
 
