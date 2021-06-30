@@ -58,6 +58,11 @@ router.get("/channel/:twitchName", async (req, res) => {
 
     let merge = [...(twitchRes.data.data), ...(moreTwitchRes.data.data)]
     console.log(merge.length)
+
+    if(merge.length === 0){
+        res.sendStatus(404)
+    }
+    
     res.send(merge)
 });
 
